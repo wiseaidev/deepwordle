@@ -105,6 +105,9 @@ def main() -> int:
     print(figlet)
     console = Console()
     console.print(figlet)
+    console.print(FigletText(text="foo", font_name="small"))
+    console.print(FigletText(text="foo", font_name="standard"))
+    console.print(FigletText(text="foo", font_name="big"))
     return 0
 
 

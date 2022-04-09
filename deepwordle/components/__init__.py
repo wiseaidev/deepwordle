@@ -10,7 +10,7 @@
 
 """
 
-from .utils import update_letters_state, add_new_letter, remove_letter, get_day_index, read_from_file
-from .message import MessagePanel
-from .letters_grid import LettersGrid
-from .constants import CUBES, LETTERS
+from  deepwordle.components.utils import update_letters_state, add_new_letter, remove_letter, get_day_index, read_from_file
+from  deepwordle.components.message import MessagePanel
+from  deepwordle.components.letters_grid import LettersGrid
+from  deepwordle.components.constants import CUBES, LETTERS

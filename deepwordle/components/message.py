@@ -19,7 +19,7 @@ from textual.views import DockView
 from textual.app import App
 from rich.style import Style
 from typing import Optional, Union
-from .rich_text import FigletText
+from deepwordle.components.rich_text import FigletText
 
 from rich.text import (
     Text

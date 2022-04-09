@@ -34,7 +34,7 @@ class MainApp(App):
     _end: Reactive[bool] = Reactive(False)
 
     @property
-    def result(self) -> bool:
+    def result(self) -> Reactive[bool]:
         """
         A getter method that returns the value of the `result` attribute.
         :param self: Instance of the class.
@@ -47,7 +47,7 @@ class MainApp(App):
         return self._result
 
     @result.setter
-    def result(self, value: bool) -> None:
+    def result(self, value: Reactive[bool]) -> None:
         """
         A setter method that changes the value of the `result` attribute.
         :param value: A boolean that represents the value of the `result` attribute.
@@ -56,7 +56,7 @@ class MainApp(App):
         setattr(self, "_result", value)
 
     @property
-    def end(self) -> bool:
+    def end(self) -> Reactive[bool]:
         """
         A getter method that returns the value of the `end` attribute.
         :param self: Instance of the class.
@@ -69,7 +69,7 @@ class MainApp(App):
         return self._end
 
     @end.setter
-    def end(self, value: bool) -> None:
+    def end(self, value: Reactive[bool]) -> None:
         """
         A setter method that changes the value of the `end` attribute.
         :param value: A boolean that represents the value of the `end` attribute.
@@ -101,17 +101,13 @@ class MainApp(App):
         else:
             return
 
-    def watch_result(self, value) -> None:
+    def watch__result(self, value) -> None:
         if value == True:
-            content = "You Win!"
-            content += "\nPress `t` to tweet your result."
-            self.message.content = content
-            Twitter
+            self.message.content = "You Win!\nPress `t` to tweet your result."
 
-    def watch_end(self, value) -> None:
-        if self.letters_grid.letters_count == 5 * 6 - 1 or self.end == "end":
-            content = f"The answer is: {self.secret}"
-            self.message.content = content
+    def watch__end(self, value) -> None:
+        if value == True:
+            self.message.content =  f"The answer is: {self.secret}"
 
     def check_guess(self) -> bool:
         current_letters = self.letters_grid.current_letters
@@ -139,7 +135,9 @@ class MainApp(App):
                 self.construct_letters_from_word(word) 
             else:
                 self.message.content = f"You said `{word}` which is not a five letters word.\nPress `r` and try again."
-        
+        else:
+            self.message.content = f"You said `{word}` which is not a five letters word.\nPress `r` and try again."
+
     def construct_letters_from_word(self, word=""):
         for letter in word:
             self.letters_grid.letters_count = add_new_letter(self.letters_grid.letters, self.letters_grid.letters_count, letter)
@@ -178,7 +176,7 @@ class MainApp(App):
         self.guesses_list = read_from_file('wordle-guesses.txt')
         self.answers_list = read_from_file('wordle-answers.txt')
         # secret word to guess
-        self.secret = random.choice(self.guesses_list).upper()
+        self.secret = random.choice(self.guesses_list)
         self.message = MessagePanel("Press `r` to start recording audio...")
         self.stats = MessagePanel("Stats: Coming Soon...")
         letters_grid = DockView()

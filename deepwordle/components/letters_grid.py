@@ -10,11 +10,11 @@
 
 """
 
-from .utils import update_letters_state, add_new_letter, remove_letter
+from deepwordle.components.utils import update_letters_state, add_new_letter, remove_letter
 from textual.views import DockView, GridView
-from .constants import WORD_LENGTH, MAX_ATTEMPTS, LETTERS
+from deepwordle.components.constants import WORD_LENGTH, MAX_ATTEMPTS, LETTERS
 from typing import List, Optional, TypeVar
-from .letter import Letter
+from deepwordle.components.letter import Letter
 from textual.app import App
 from textual import events
 from textual.reactive import Reactive

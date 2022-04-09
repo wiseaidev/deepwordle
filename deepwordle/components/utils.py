@@ -10,9 +10,9 @@
 
 """
 from collections import Counter
-from .constants import IS_IN_POSITION, IS_IN_WORD, NOT_IN_WORD, WORD_LENGTH
+from deepwordle.components.constants import IS_IN_POSITION, IS_IN_WORD, NOT_IN_WORD, WORD_LENGTH
 from typing import List, TypeVar
-from .letter import Letter
+from deepwordle.components.letter import Letter
 import datetime
 import os
 
