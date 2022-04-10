@@ -10,27 +10,36 @@
 
 """
 
-import tweepy
+from attrs import (
+    define,
+    field,
+)
 import os
-from attrs import define, field
-from typing import Optional, TypeVar
-
+import tweepy
+from typing import (
+    Optional,
+    TypeVar,
+)
 
 T = TypeVar("T", bound=tweepy.auth.OAuthHandler)
 V = TypeVar("V", bound=type(tweepy.api))
+
 
 @define
 class Twitter:
     """Class that encapsulates twitter's api config."""
 
     _consumer_key: Optional[str] = field(default=os.environ.get("CONSUMER_KEY", ""))
-    _consumer_secret: Optional[str] = field(default=os.environ.get("CONSUMER_SECRET", ""))
-    _access_token: Optional[str] = field(default=os.environ.get("ACCESS_TOKEN",""))
-    _access_token_secret: Optional[str] = field(default=os.environ.get("ACCESS_TOKEN_SECRET", ""))
+    _consumer_secret: Optional[str] = field(
+        default=os.environ.get("CONSUMER_SECRET", "")
+    )
+    _access_token: Optional[str] = field(default=os.environ.get("ACCESS_TOKEN", ""))
+    _access_token_secret: Optional[str] = field(
+        default=os.environ.get("ACCESS_TOKEN_SECRET", "")
+    )
     _text: Optional[str] = field(default="automated tweet by deepwordle!")
     _auth: Optional[T] = field(default=None)
     _api: Optional[T] = field(default=None)
-
 
     @property
     def consumer_key(self) -> str:
@@ -40,7 +49,9 @@ class Twitter:
         :return: A string that represents the value of the `consumer_key` attribute.
         """
         if not hasattr(self, "_consumer_key"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named consumer_key.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named consumer_key."
+            )
         return self._consumer_key
 
     @consumer_key.setter
@@ -60,7 +71,9 @@ class Twitter:
         :return: A string that represents the value of the `consumer_secret` attribute.
         """
         if not hasattr(self, "_consumer_secret"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named consumer_secret.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named consumer_secret."
+            )
         return self._consumer_secret
 
     @consumer_secret.setter
@@ -80,7 +93,9 @@ class Twitter:
         :return: A string that represents the value of the `access_token` attribute.
         """
         if not hasattr(self, "_access_token"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named access_token.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named access_token."
+            )
         return self._access_token
 
     @access_token.setter
@@ -100,7 +115,9 @@ class Twitter:
         :return: A string that represents the value of the `access_token_secret` attribute.
         """
         if not hasattr(self, "_access_token_secret"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named access_token_secret.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named access_token_secret."
+            )
         return self._access_token_secret
 
     @access_token_secret.setter
@@ -120,7 +137,9 @@ class Twitter:
         :return: A string that represents the value of the `text` attribute.
         """
         if not hasattr(self, "_text"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named text.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named text."
+            )
         return self._text
 
     @text.setter
@@ -140,7 +159,9 @@ class Twitter:
         :return: A tweepy OAuth Handler that represents the value of the `auth` attribute.
         """
         if not hasattr(self, "_auth"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named auth.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named auth."
+            )
         return self._auth
 
     @auth.setter
@@ -160,7 +181,9 @@ class Twitter:
         :return: A tweepy client api that represents the value of the `api` attribute.
         """
         if not hasattr(self, "_api"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named api.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named api."
+            )
         return self._api
 
     @api.setter
@@ -174,10 +197,10 @@ class Twitter:
 
     def __attrs_post_init__(self):
         config = {
-            'consumer_key': self.consumer_key,
-            'consumer_secret': self.consumer_secret,
-            'access_token': self.access_token,
-            'access_token_secret': self.access_token_secret,
+            "consumer_key": self.consumer_key,
+            "consumer_secret": self.consumer_secret,
+            "access_token": self.access_token,
+            "access_token_secret": self.access_token_secret,
         }
         for key, value in config.items():
             assert len(value) > 0, f"Please provide a valid secret for: {key}"
@@ -190,7 +213,7 @@ class Twitter:
             self.api.verify_credentials()
         except Exception as error:
             raise error
-        
+
     def post_tweet(self):
         # Post a text based tweet
         self.api.update_status(self.text)

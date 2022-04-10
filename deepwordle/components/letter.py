@@ -10,19 +10,50 @@
 
 """
 
-from typing import Literal, Optional, Union
+from rich.align import (
+    Align,
+)
+from rich.console import (
+    Console,
+    ConsoleRenderable,
+    RenderableType,
+    RichCast,
+)
+from rich.padding import (
+    Padding,
+)
+from rich.style import (
+    Style,
+)
+from textual.app import (
+    App,
+)
+from textual.reactive import (
+    Reactive,
+)
+from textual.views import (
+    DockView,
+)
+from textual.widgets import (
+    Button,
+    Footer,
+    Header,
+)
+from typing import (
+    Literal,
+    Optional,
+    Union,
+)
 
-from rich.align import Align
-from rich.console import Console, ConsoleRenderable, RenderableType, RichCast
-from rich.padding import Padding
-from rich.style import Style
-from textual.app import App
-from textual.reactive import Reactive
-from textual.views import DockView
-from textual.widgets import Footer, Header, Button
-
-from deepwordle.components.constants import LETTER_COLORS, NOT_IN_WORD, IS_IN_WORD, IS_IN_POSITION
-from deepwordle.components.rich_text import FigletText
+from deepwordle.components.constants import (
+    IS_IN_POSITION,
+    IS_IN_WORD,
+    LETTER_COLORS,
+    NOT_IN_WORD,
+)
+from deepwordle.components.rich_text import (
+    FigletText,
+)
 
 
 class Letter(Button):
@@ -33,7 +64,9 @@ class Letter(Button):
     _character: Reactive[RenderableType] = Reactive(
         default="", layout=False, repaint=True
     )
-    _state: Reactive[Literal[NOT_IN_WORD, IS_IN_WORD, IS_IN_POSITION]] = Reactive(default=NOT_IN_WORD, layout=False, repaint=True)
+    _state: Reactive[Literal[NOT_IN_WORD, IS_IN_WORD, IS_IN_POSITION]] = Reactive(
+        default=NOT_IN_WORD, layout=False, repaint=True
+    )
     _color: Reactive[Union[str, Style]] = Reactive(
         default=LETTER_COLORS[NOT_IN_WORD], layout=False, repaint=True
     )
@@ -41,7 +74,9 @@ class Letter(Button):
         default="mini", layout=False, repaint=True
     )
 
-    def __init__(self, character: str, state: int = NOT_IN_WORD, font_name: str = "small"):
+    def __init__(
+        self, character: str, state: int = NOT_IN_WORD, font_name: str = "small"
+    ):
         super().__init__(character)
         self.character = character
         self.state = state
@@ -156,7 +191,9 @@ class Letter(Button):
         # change the style according to the state
         if self.color != LETTER_COLORS[self.state]:
             self.color = LETTER_COLORS[self.state]
-        renderable = Align.center(FigletText(text=self.character, font_name=self.font_name), vertical="middle")
+        renderable = Align.center(
+            FigletText(text=self.character, font_name=self.font_name), vertical="middle"
+        )
         return Padding(
             renderable,
             pad=(1, 1, 1, 1),

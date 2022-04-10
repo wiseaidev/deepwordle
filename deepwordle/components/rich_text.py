@@ -12,25 +12,26 @@
 
 """
 
-from pyfiglet import(  # type: ignore
-    Figlet
+import attr
+from attrs import (
+    field,
+    frozen,
+    validators,
 )
-
+from pyfiglet import (
+    Figlet,  # type: ignore
+)
 from rich.console import (
     Console,
     ConsoleOptions,
     RenderResult,
 )
-
 from rich.text import (
-    Text
+    Text,
 )
-
 from typing import (
-    Optional
+    Optional,
 )
-import attr
-from attrs import frozen, field, validators
 
 
 @frozen
@@ -38,7 +39,9 @@ from attrs import frozen, field, validators
 class FigletText:
 
     _text: str = field(init=True, validator=validators.instance_of(str), converter=str)
-    _font_name: Optional[str] = field(default="small", validator=validators.instance_of(str), converter=str)
+    _font_name: Optional[str] = field(
+        default="small", validator=validators.instance_of(str), converter=str
+    )
 
     @property
     def text(self) -> str:
@@ -48,7 +51,9 @@ class FigletText:
         :return: A string that represents the value of the `text` attribute.
         """
         if not hasattr(self, "_text"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named text.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named text."
+            )
         return self._text
 
     @text.setter
@@ -68,7 +73,9 @@ class FigletText:
         :return: A string that represents the value of the `font_name` attribute.
         """
         if not hasattr(self, "_font_name"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named font_name.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named font_name."
+            )
         return self._font_name
 
     @font_name.setter

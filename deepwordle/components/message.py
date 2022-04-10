@@ -9,21 +9,47 @@
 .. _mail: eng.mahmoudharmouch@gmail.com
 
 """
-from rich.panel import Panel
-from textual.widget import Widget
-from textual.reactive import Reactive
-from rich.console import Console, RenderableType
-from rich.align import Align
-from textual.widgets import Footer, Header
-from textual.views import DockView
-from textual.app import App
-from rich.style import Style
-from typing import Optional, Union
-from deepwordle.components.rich_text import FigletText
-
-from rich.text import (
-    Text
+from rich.align import (
+    Align,
 )
+from rich.console import (
+    Console,
+    RenderableType,
+)
+from rich.panel import (
+    Panel,
+)
+from rich.style import (
+    Style,
+)
+from rich.text import (
+    Text,
+)
+from textual.app import (
+    App,
+)
+from textual.reactive import (
+    Reactive,
+)
+from textual.views import (
+    DockView,
+)
+from textual.widget import (
+    Widget,
+)
+from textual.widgets import (
+    Footer,
+    Header,
+)
+from typing import (
+    Optional,
+    Union,
+)
+
+from deepwordle.components.rich_text import (
+    FigletText,
+)
+
 
 class MessagePanel(Widget):
 
@@ -32,7 +58,13 @@ class MessagePanel(Widget):
     _font_name: Reactive[str] = Reactive("")
     _color: Union[str, Style] = Reactive("")
 
-    def __init__(self, content: str, figlet: Optional[bool] = False, font_name: Optional[str] = "small", style: Optional[str] = "bold") -> None:
+    def __init__(
+        self,
+        content: str,
+        figlet: Optional[bool] = False,
+        font_name: Optional[str] = "small",
+        style: Optional[str] = "bold",
+    ) -> None:
         super().__init__(self.__class__.__name__)
         self.content: str = content
         self.figlet: Optional[bool] = figlet
@@ -47,7 +79,9 @@ class MessagePanel(Widget):
         :return: A string that represents the value of the `content` attribute.
         """
         if not hasattr(self, "_content"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named content.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named content."
+            )
         return self._content
 
     @content.setter
@@ -67,7 +101,9 @@ class MessagePanel(Widget):
         :return: A string that represents the value of the `figlet` attribute.
         """
         if not hasattr(self, "_figlet"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named figlet.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named figlet."
+            )
         return self._figlet
 
     @figlet.setter
@@ -87,7 +123,9 @@ class MessagePanel(Widget):
         :return: A string that represents the value of the `font_name` attribute.
         """
         if not hasattr(self, "_font_name"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named font_name.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named font_name."
+            )
         return self._font_name
 
     @font_name.setter
@@ -107,7 +145,9 @@ class MessagePanel(Widget):
         :return: A string that represents the value of the `color` attribute.
         """
         if not hasattr(self, "_color"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named color.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named color."
+            )
         return self._color
 
     @color.setter
@@ -125,10 +165,16 @@ class MessagePanel(Widget):
     def render(self) -> RenderableType:
         renderable: Align
         if self.figlet:
-            renderable = Align.center(FigletText(text=self.content, font_name=self.font_name), vertical="middle")
+            renderable = Align.center(
+                FigletText(text=self.content, font_name=self.font_name),
+                vertical="middle",
+            )
         else:
-            renderable = Align.center(Text(text=self.content, style=self.color), vertical="middle")
+            renderable = Align.center(
+                Text(text=self.content, style=self.color), vertical="middle"
+            )
         return Panel(renderable, style=self.color)
+
 
 if __name__ == "__main__":
     message_panel = MessagePanel("Awesome Widget")
@@ -136,9 +182,11 @@ if __name__ == "__main__":
     print(message_panel)
     console = Console()
     console.print(message_panel)
-    message_panel = MessagePanel("Awesome Widget", figlet=True, font_name='mini')
+    message_panel = MessagePanel("Awesome Widget", figlet=True, font_name="mini")
     console.print(message_panel)
-    message_panel = MessagePanel("Awesome Widget", figlet=True, font_name='small', style='green')
+    message_panel = MessagePanel(
+        "Awesome Widget", figlet=True, font_name="small", style="green"
+    )
     console.print(message_panel)
     # class MyApp(App):
     #     async def on_load(self) -> None:

@@ -29,8 +29,4 @@ LETTER_COLORS = {
     IS_IN_POSITION: GREEN,
 }
 
-CUBES = {
-    NOT_IN_WORD: "⬛",
-    IS_IN_WORD: "🟨",
-    IS_IN_POSITION: "🟩"
-}
+CUBES = {NOT_IN_WORD: "⬛", IS_IN_WORD: "🟨", IS_IN_POSITION: "🟩"}

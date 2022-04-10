@@ -1,8 +1,9 @@
 """
-| The following script implements all the necessary logic required for recording audio data in 
+| The following script implements all the necessary logic required for recording audio data in
 | our application.
 
-| This program and the accompanying materials are made available under the terms of the `MIT License`_.
+| This program and the accompanying materials are made available under the terms of the
+| `MIT License`_.
 | SPDX short identifier: MIT
 | Contributors:
     Mahmoud Harmouch, mail_.
@@ -11,33 +12,66 @@
 
 """
 
+from attrs import (
+    define,
+    field,
+)
+import os
 import pyaudio  # type: ignore
-import wave
-from typing import Optional, Literal, IO, Union, List
-from attrs import define, field
-import time
+
 # import numpy as np
 # from uniplot import (
 #     plot_to_string
 # )
-from rich.align import Align
-from rich.console import Console, ConsoleRenderable, RenderableType, RichCast
-from rich.padding import Padding
-from rich.style import Style
-from textual.app import App
-from textual.reactive import Reactive
-from textual.views import DockView
-from textual.widget import Widget
-from textual.widgets import Footer, Header
+from rich.align import (
+    Align,
+)
+from rich.console import (
+    Console,
+    ConsoleRenderable,
+    RenderableType,
+    RichCast,
+)
+from rich.padding import (
+    Padding,
+)
 from rich.panel import (
-    Panel
+    Panel,
+)
+from rich.style import (
+    Style,
 )
 from rich.text import (
-    Text
+    Text,
 )
-from textual import events
-import os
-
+from textual import (
+    events,
+)
+from textual.app import (
+    App,
+)
+from textual.reactive import (
+    Reactive,
+)
+from textual.views import (
+    DockView,
+)
+from textual.widget import (
+    Widget,
+)
+from textual.widgets import (
+    Footer,
+    Header,
+)
+import time
+from typing import (
+    IO,
+    List,
+    Literal,
+    Optional,
+    Union,
+)
+import wave
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -45,12 +79,15 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 @define
 class AudioRecorder:
     """
-    A brief encapsulation of an audio recorder object attributes and methods. All fields are private by default, and only accessible through
-    getters/setters, but someone still could hack his/her way around it!  
+    A brief encapsulation of an audio recorder object attributes and methods.
+    All fields are private by default, and only accessible through
+    getters/setters, but someone still could hack his/her way around it!
 
     Attrs:
-        frames_per_buffer: An integer indicating the number of frames per buffer; 1024 frames/buffer by default.
-        audio_format: An integer that represents the number of bits per sample stored as 16-bit signed int.
+        frames_per_buffer: An integer indicating the number of frames per buffer;
+            1024 frames/buffer by default.
+        audio_format: An integer that represents the number of bits per sample
+            stored as 16-bit signed int.
         channels: An integer indicating how many channels a microphone has.
         rate: An integer indicating how many samples per second: frequency.
         py_audio: pyaudio instance.
@@ -59,6 +96,7 @@ class AudioRecorder:
         mode: file object mode.
         file_name: file name to store audio data in it.
     """
+
     _frames_per_buffer: int = field(init=True, default=1024)
     _audio_format: int = field(init=True, default=pyaudio.paInt16)
     _channels: int = field(init=True, default=1)
@@ -66,8 +104,8 @@ class AudioRecorder:
     _py_audio: pyaudio.PyAudio = field(init=False, default=pyaudio.PyAudio())
     _data_stream: IO[bytes] = field(init=False, default=None)
     _wave_file: wave.Wave_write = field(init=False, default=None)
-    _mode: str = field(init=True, default='wb')
-    _file_name: Union[str, IO[bytes]] = field(init=True, default='word.wav')
+    _mode: str = field(init=True, default="wb")
+    _file_name: Union[str, IO[bytes]] = field(init=True, default="word.wav")
 
     @property
     def frames_per_buffer(self) -> int:
@@ -77,7 +115,9 @@ class AudioRecorder:
         :return: An integer that represents the value of the `frames_per_buffer` attribute.
         """
         if not hasattr(self, "_frames_per_buffer"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named frames_per_buffer.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named frames_per_buffer."
+            )
         return self._frames_per_buffer
 
     @frames_per_buffer.setter
@@ -97,7 +137,9 @@ class AudioRecorder:
         :return: A string that represents the value of the `audio_format` attribute.
         """
         if not hasattr(self, "_audio_format"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named audio_format.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named audio_format."
+            )
         return self._audio_format
 
     @audio_format.setter
@@ -117,7 +159,9 @@ class AudioRecorder:
         :return: An integer that represents the value of the `channels` attribute.
         """
         if not hasattr(self, "_channels"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named channels.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named channels."
+            )
         return self._channels
 
     @channels.setter
@@ -137,7 +181,9 @@ class AudioRecorder:
         :return: A string that represents the value of the `rate` attribute.
         """
         if not hasattr(self, "_rate"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named rate.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named rate."
+            )
         return self._rate
 
     @rate.setter
@@ -157,7 +203,9 @@ class AudioRecorder:
         :return: A PyAudio object that represents the value of the `py_audio` attribute.
         """
         if not hasattr(self, "_py_audio"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named py_audio.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named py_audio."
+            )
         return self._py_audio
 
     @py_audio.setter
@@ -177,7 +225,9 @@ class AudioRecorder:
         :return: A string that represents the value of the `data_stream` attribute.
         """
         if not hasattr(self, "_data_stream"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named data_stream.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named data_stream."
+            )
         return self._data_stream
 
     @data_stream.setter
@@ -197,7 +247,9 @@ class AudioRecorder:
         :return: A string that represents the value of the `wave_file` attribute.
         """
         if not hasattr(self, "_wave_file"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named wave_file.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named wave_file."
+            )
         return self._wave_file
 
     @wave_file.setter
@@ -217,7 +269,9 @@ class AudioRecorder:
         :return: A string that represents the value of the `file_name` attribute.
         """
         if not hasattr(self, "_mode"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named file_name.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named file_name."
+            )
         return self._file_name
 
     @file_name.setter
@@ -237,7 +291,9 @@ class AudioRecorder:
         :return: A string that represents the value of the `mode` attribute.
         """
         if not hasattr(self, "_mode"):
-            raise AttributeError(f"Your {self.__class__.__name__!r} instance has no attribute named mode.")
+            raise AttributeError(
+                f"Your {self.__class__.__name__!r} instance has no attribute named mode."
+            )
         return self._mode
 
     @mode.setter
@@ -272,7 +328,7 @@ class AudioRecorder:
     #     del wave_file
     #     return
 
-    def record(self, duration: int=3) -> Optional[List[List[str]]]:
+    def record(self, duration: int = 3) -> Optional[List[List[str]]]:
         self.wave_file = wave.open(os.path.join(BASE_DIR, self.file_name), self.mode)
         self.wave_file.setnchannels(self.channels)
         self.wave_file.setsampwidth(self.py_audio.get_sample_size(self.audio_format))
@@ -281,16 +337,17 @@ class AudioRecorder:
         #     return [[''], ]
         # stream object to get data from microphone
         self.data_stream = self.py_audio.open(
-                                        format=self.audio_format,
-                                        channels=self.channels,
-                                        rate=self.rate,
-                                        input=True,
-                                        output=True,
-                                        frames_per_buffer=self.frames_per_buffer)
+            format=self.audio_format,
+            channels=self.channels,
+            rate=self.rate,
+            input=True,
+            output=True,
+            frames_per_buffer=self.frames_per_buffer,
+        )
         frame_count = 0
-        frames: List[List[str]] = []
+        # frames: List[List[str]] = []
         max_frames: int = int(self.rate / self.frames_per_buffer * duration) - 1
-        start_time = time.time()
+        # start_time = time.time()
         while True:
             frame_count += 1
             # read audio data
@@ -319,11 +376,12 @@ class AudioRecorder:
             self.py_audio.terminate()
             self.wave_file.close()
 
+
 class Figure(Widget):
 
-    plot: str = Reactive('')
-    vertical: Optional[Literal['top', 'middle', 'bottom']]
-    title: Optional[str] = 'plot'
+    plot: str = Reactive("")
+    vertical: Optional[Literal["top", "middle", "bottom"]]
+    title: Optional[str] = "plot"
     _style: str
 
     def __init__(
@@ -331,7 +389,7 @@ class Figure(Widget):
         name: str,
         plot: str,
         style: str,
-        vertical: Optional[Literal['top', 'middle', 'bottom']] = "middle"
+        vertical: Optional[Literal["top", "middle", "bottom"]] = "middle",
     ) -> None:
         super().__init__(name)
         self.plot: str = plot
@@ -345,12 +403,13 @@ class Figure(Widget):
             renderable=Align.center(Text(self.plot), vertical=self.vertical),
             style=self._style,
             expand=False,
-            title=self.title
+            title=self.title,
         )
+
 
 if __name__ == "__main__":
     rec = AudioRecorder()
-    #rec.init_recording()
+    # rec.init_recording()
     print(rec)
     rec.record()
     # for frame in frames:

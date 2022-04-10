@@ -10,22 +10,50 @@
 .. _mail: eng.mahmoudharmouch@gmail.com
 
 """
-from textual.app import App
-from textual.reactive import Reactive
-from textual import events
-from deepwordle.components import update_letters_state, add_new_letter, remove_letter, get_day_index, read_from_file, LETTERS
-from textual.widgets import Footer, Header
-from deepwordle.components import MessagePanel
-from deepwordle.components import LettersGrid
-from textual.views import DockView
-from deepwordle.components import CUBES
-from typing import Optional
-from deepwordle.twitter import Twitter
-from deepwordle.audio_record import AudioRecorder
-from deepwordle.transcribe import Recognizer
-import random
 import asyncio
 import nest_asyncio
+import random
+from textual import (
+    events,
+)
+from textual.app import (
+    App,
+)
+from textual.reactive import (
+    Reactive,
+)
+from textual.views import (
+    DockView,
+)
+from textual.widgets import (
+    Footer,
+    Header,
+)
+from typing import (
+    Optional,
+)
+
+from deepwordle.audio_record import (
+    AudioRecorder,
+)
+from deepwordle.components import (
+    CUBES,
+    LETTERS,
+    LettersGrid,
+    MessagePanel,
+    add_new_letter,
+    get_day_index,
+    read_from_file,
+    remove_letter,
+    update_letters_state,
+)
+from deepwordle.transcribe import (
+    Recognizer,
+)
+from deepwordle.twitter import (
+    Twitter,
+)
+
 nest_asyncio.apply()
 
 
@@ -96,26 +124,33 @@ class MainApp(App):
                 return
 
             elif event.key == "ctrl+h":
-                self.letters_grid.letters_count = remove_letter(self.letters_grid.letters, self.letters_grid.letters_count)
+                self.letters_grid.letters_count = remove_letter(
+                    self.letters_grid.letters, self.letters_grid.letters_count
+                )
                 return
         else:
             return
 
     def watch__result(self, value) -> None:
-        if value == True:
+        if value is True:
             self.message.content = "You Win!\nPress `t` to tweet your result."
 
     def watch__end(self, value) -> None:
-        if value == True:
-            self.message.content =  f"The answer is: {self.secret}"
+        if value is True:
+            self.message.content = f"The answer is: {self.secret}"
 
     def check_guess(self) -> bool:
         current_letters = self.letters_grid.current_letters
-        current_word = "".join(map(lambda letter: letter.character, current_letters)).lower()
+        current_word = "".join(
+            map(lambda letter: letter.character, current_letters)
+        ).lower()
         if len(current_word) < 5:
             self.message.content = "Not enough letters"
             return False
-        if current_word not in self.guesses_list and current_word not in self.answers_list:
+        if (
+            current_word not in self.guesses_list
+            and current_word not in self.answers_list
+        ):
             self.message.content = "Not in word list"
             return False
         result = self.letters_grid.check_guess(self.secret)
@@ -124,38 +159,48 @@ class MainApp(App):
     def process_recording(self, duration=2):
         self.message.content = f"Recording audio for {duration} seconds..."
         self.audio_recorder.record(duration)
-        self.message.content = f"Transcribing audio data..."
+        self.message.content = "Transcribing audio data..."
         result = self.loop.run_until_complete(self.recognizer.recognize())
         words = result["results"]["channels"][0]["alternatives"][0]["words"]
         word = ""
         if len(words) > 0:
             word = words[0]["word"]
             if len(word) == 5:
-                self.message.content = f"You said {word}.\nPress:\n  ↵ to submit your word.\n  ← to remove your letters."
-                self.construct_letters_from_word(word) 
+                self.message.content = f"You said {word}.\nPress:\n  ↵ to submit your word."
+                self.message.content += "\n  ← to remove your letters."
+                self.construct_letters_from_word(word)
             else:
-                self.message.content = f"You said `{word}` which is not a five letters word.\nPress `r` and try again."
+                self.message.content = f"You said `{word}` which is not a five letters word."
+                self.message.content += "\nPress `r` and try again."
         else:
-            self.message.content = f"You said `{word}` which is not a five letters word.\nPress `r` and try again."
+            self.message.content = f"You said `{word}` which is not a five letters word."
+            self.message.content += "\nPress `r` and try again."
 
     def construct_letters_from_word(self, word=""):
         for letter in word:
-            self.letters_grid.letters_count = add_new_letter(self.letters_grid.letters, self.letters_grid.letters_count, letter)
+            self.letters_grid.letters_count = add_new_letter(
+                self.letters_grid.letters, self.letters_grid.letters_count, letter
+            )
 
     def action_tweet(self) -> None:
         if self.result:
             letters = self.letters_grid.non_empty_letters()
-            numerator = len(letters) // 5 if self.result else 'x'
+            numerator = len(letters) // 5 if self.result else "x"
             result = "Wordle {index} {numerator}/6 \n\n{status} \n\n\n{footer}"
             status = "".join(map(lambda letter: CUBES[letter.state], letters))
-            status = "\n".join([status[index : index + 5] for index in range(0, len(status), 5)])
-            footer = "This tweet was generated by #deepwordle: A wordle clone game powered by #deepgram, #textual, #tweepy, and friends."
-            tweet = result.format(index=self.index, numerator=numerator, status=status, footer=footer)
-            #self.message.content = tweet
+            status = "\n".join(
+                [status[index: index + 5] for index in range(0, len(status), 5)]
+            )
+            footer = "This tweet was generated by #deepwordle: A wordle clone game "
+            footer += "powered by #deepgram, #textual, #tweepy, and friends."
+            tweet = result.format(
+                index=self.index, numerator=numerator, status=status, footer=footer
+            )
+            # self.message.content = tweet
             self.message.content = "Tweeting your result...\n"
             self.twitter.text = tweet
             self.twitter.post_tweet()
-            #self.message.content = self.twitter.text
+            # self.message.content = self.twitter.text
 
     async def on_mount(self) -> None:
         view = await self.push_view(DockView())
@@ -167,16 +212,17 @@ class MainApp(App):
         self.recognizer = Recognizer()
         self.loop = asyncio.new_event_loop()
         asyncio.set_event_loop(self.loop)
-        # initialize 
+        # initialize
         self.audio_recorder = AudioRecorder()
         # day index
         self.index = get_day_index()
-        #self.result = True
+        # self.result = True
         # read files
-        self.guesses_list = read_from_file('wordle-guesses.txt')
-        self.answers_list = read_from_file('wordle-answers.txt')
+        self.guesses_list = read_from_file("wordle-guesses.txt")
+        self.answers_list = read_from_file("wordle-answers.txt")
         # secret word to guess
-        self.secret = random.choice(self.guesses_list)
+        # self.secret = random.choice(self.guesses_list)
+        self.secret = "react"
         self.message = MessagePanel("Press `r` to start recording audio...")
         self.stats = MessagePanel("Stats: Coming Soon...")
         letters_grid = DockView()
@@ -188,6 +234,7 @@ class MainApp(App):
         await view.dock(self.message, edge="right", size=40)
         await view.dock(letters_grid, edge="left", z=-10)
 
+
 def main(argv=None) -> int:
     try:
         MainApp.run(title="DeepWordle", log="textual.log", log_verbosity=2)
@@ -195,5 +242,6 @@ def main(argv=None) -> int:
         return -1
     return 0
 
+
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

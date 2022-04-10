@@ -10,18 +10,45 @@
 
 """
 
-from deepwordle.components.utils import update_letters_state, add_new_letter, remove_letter
-from textual.views import DockView, GridView
-from deepwordle.components.constants import WORD_LENGTH, MAX_ATTEMPTS, LETTERS
-from typing import List, Optional, TypeVar
-from deepwordle.components.letter import Letter
-from textual.app import App
-from textual import events
-from textual.reactive import Reactive
-from textual.widgets import Footer, Header
+from textual import (
+    events,
+)
+from textual.app import (
+    App,
+)
+from textual.reactive import (
+    Reactive,
+)
+from textual.views import (
+    DockView,
+    GridView,
+)
+from textual.widgets import (
+    Footer,
+    Header,
+)
+from typing import (
+    List,
+    Optional,
+    TypeVar,
+)
 
+from deepwordle.components.constants import (
+    LETTERS,
+    MAX_ATTEMPTS,
+    WORD_LENGTH,
+)
+from deepwordle.components.letter import (
+    Letter,
+)
+from deepwordle.components.utils import (
+    add_new_letter,
+    remove_letter,
+    update_letters_state,
+)
 
 L = TypeVar("L", bound=Letter)
+
 
 class LettersGrid(GridView):
     """
@@ -35,9 +62,7 @@ class LettersGrid(GridView):
     _max_letters: Reactive[int] = Reactive(
         default=WORD_LENGTH * MAX_ATTEMPTS, layout=False, repaint=True
     )
-    _letters_count : Reactive[int] = Reactive(
-        default=0, layout=False, repaint=True
-    )
+    _letters_count: Reactive[int] = Reactive(default=0, layout=False, repaint=True)
 
     @property
     def current_letters(self) -> List[L]:
@@ -52,7 +77,7 @@ class LettersGrid(GridView):
             )
         index: int = 0
         if self.letters_count is None:
-           self.letters_count = 0
+            self.letters_count = 0
         index: int = int(self.letters_count / WORD_LENGTH) * WORD_LENGTH
         self._current_letters = self.letters[index : index + WORD_LENGTH]
         return self._current_letters
@@ -159,7 +184,9 @@ class LettersGrid(GridView):
         for letter in self.current_letters:
             if letter.character == "":
                 return False
-        current_guess = "".join(map(lambda letter: letter.character, self.current_letters)).lower()
+        current_guess = "".join(
+            map(lambda letter: letter.character, self.current_letters)
+        ).lower()
         # update the state of the letters on the grid.
         # in python, a list is passed by reference
         updated_letters = update_letters_state(self.current_letters, answer.upper())
@@ -168,9 +195,12 @@ class LettersGrid(GridView):
             self.letters_count += 1
         return current_guess == answer
 
+
 if __name__ == "__main__":
+
     class MyApp(App):
-        result : Reactive[bool] = Reactive(default=False, layout=False, repaint=True)
+        result: Reactive[bool] = Reactive(default=False, layout=False, repaint=True)
+
         async def on_load(self) -> None:
             """Bind keys here."""
             await self.bind("q", "quit", "Quit")
@@ -178,13 +208,19 @@ if __name__ == "__main__":
         def on_key(self, event: events.Key) -> None:
             if not self.result:
                 if event.key == "enter":
-                    self.result = self.letters_grid.check_guess('react')
+                    self.result = self.letters_grid.check_guess("react")
                     return
                 elif event.key in LETTERS:
-                    self.letters_grid.letters_count = add_new_letter(self.letters_grid.letters, self.letters_grid.letters_count, event.key)
+                    self.letters_grid.letters_count = add_new_letter(
+                        self.letters_grid.letters,
+                        self.letters_grid.letters_count,
+                        event.key,
+                    )
                     return
                 elif event.key == "ctrl+h":
-                    self.letters_grid.letters_count = remove_letter(self.letters_grid.letters, self.letters_grid.letters_count)
+                    self.letters_grid.letters_count = remove_letter(
+                        self.letters_grid.letters, self.letters_grid.letters_count
+                    )
                     return
             else:
                 return
@@ -197,4 +233,5 @@ if __name__ == "__main__":
             await view.dock(self.letters_grid, edge="left", name="grid letters")
             await view.dock(header, edge="top")
             await view.dock(footer, edge="bottom")
-    MyApp.run(log="textual.log", log_verbosity=2, screen=True, title= "Letter App")
+
+    MyApp.run(log="textual.log", log_verbosity=2, screen=True, title="Letter App")

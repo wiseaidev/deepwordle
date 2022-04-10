@@ -9,17 +9,31 @@
 .. _mail: eng.mahmoudharmouch@gmail.com
 
 """
-from collections import Counter
-from deepwordle.components.constants import IS_IN_POSITION, IS_IN_WORD, NOT_IN_WORD, WORD_LENGTH
-from typing import List, TypeVar
-from deepwordle.components.letter import Letter
+from collections import (
+    Counter,
+)
 import datetime
 import os
+from typing import (
+    List,
+    TypeVar,
+)
+
+from deepwordle.components.constants import (
+    IS_IN_POSITION,
+    IS_IN_WORD,
+    NOT_IN_WORD,
+    WORD_LENGTH,
+)
+from deepwordle.components.letter import (
+    Letter,
+)
 
 L = TypeVar("L", bound=Letter)
 INIT_DATE = datetime.date(2021, 6, 19)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 print(BASE_DIR)
+
 
 def update_letters_state(current_guess_letters: List[L], answer: str) -> List[L]:
     """
@@ -59,7 +73,7 @@ def update_letters_state(current_guess_letters: List[L], answer: str) -> List[L]
 def add_new_letter(letters: List[L], letters_count: int, character: str) -> int:
     """
     A helper method to check if the user has entered a 5 letter long word.
-    If so, return. the current keep track of all letters. 
+    If so, return. the current keep track of all letters.
     if it is divisable by 5 then return.
     else increase the current count of letters being entered.
     """
@@ -75,10 +89,11 @@ def add_new_letter(letters: List[L], letters_count: int, character: str) -> int:
         letters[letters_count].character = character.upper()
     return letters_count
 
+
 def remove_letter(letters: List[L], letters_count: int) -> int:
     """
     A helper method to check if the user has entered a backspace letter.
-    the letters_count keep track of all letters. 
+    the letters_count keep track of all letters.
     if the letters_count is divisable by 5 then return.
     """
     for i, letter in enumerate(letters):
@@ -93,24 +108,30 @@ def remove_letter(letters: List[L], letters_count: int) -> int:
         letters[letters_count].character = ""
     return letters_count
 
+
 def get_day_index() -> int:
     today = datetime.date.today()
     return abs((today - INIT_DATE).days)
 
+
 def read_from_file(filename):
-    with open(os.path.join(BASE_DIR, 'data', filename), 'r') as file:
-        words_list = [line[:-1] for line in file] # each line contains a newline character.
+    with open(os.path.join(BASE_DIR, "data", filename), "r") as file:
+        words_list = [
+            line[:-1] for line in file
+        ]  # each line contains a newline character.
     return words_list
 
+
 def append_to_file(filename, word):
-    with open(os.path.join(BASE_DIR, 'data', filename), 'a+') as file:
+    with open(os.path.join(BASE_DIR, "data", filename), "a+") as file:
         file.write(f"{word}\n")
     return words_list
+
 
 if __name__ == "__main__":
     letters = []
     for letter in "there":
         letters.append(Letter(letter))
-    new_letters = update_letters_state(letters, 'react')
+    new_letters = update_letters_state(letters, "react")
     list(map(print, new_letters))
     add_new_letter
