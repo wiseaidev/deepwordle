@@ -227,7 +227,7 @@ class MainApp(App):
         self.guesses_list = read_from_file("wordle-guesses.txt")
         self.answers_list = read_from_file("wordle-answers.txt")
         # secret word to guess
-        self.secret = random.choice(self.guesses_list)
+        self.secret = random.choice(self.answers_list)
         self.message = MessagePanel("Press `r` to start recording audio...")
         self.stats = MessagePanel("Stats: Coming Soon...")
         letters_grid = DockView()
