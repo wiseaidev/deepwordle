@@ -338,11 +338,16 @@ e- If you guessed the secret word, you will be asked to press ``t`` to tweet you
    :target: https://drive.google.com/uc?export=view&id=1Mm5ZHPEPBH0ACJWO_aDQ7nrh3jIYFfvo
    :alt: tweet
 
-License:
---------
+
+👋 Contribute
+-------------
+
+If you are looking for a way to contribute to the project, please refer to the `Guideline`_.
+
+📝 License:
+-----------
 
 MIT licensed. See the bundled `licence`_ file for more details.
-
 
 .. _pipx: https://github.com/pypa/pipx
 .. _npx: https://docs.npmjs.com/cli/v7/commands/npx
@@ -350,3 +355,4 @@ MIT licensed. See the bundled `licence`_ file for more details.
 .. _poetry: https://github.com/python-poetry/poetry
 .. _licence: https://github.com/Harmouch101/deepwordle/blob/main/LICENSE
 .. _deepgram official docs: https://developers.deepgram.com/documentation/getting-started/authentication/#create-an-api-key
+.. _Guideline: https://github.com/Harmouch101/deepwordle/blob/main/CONTRIBUTING.rst
