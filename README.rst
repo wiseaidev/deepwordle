@@ -15,8 +15,8 @@ deepwordle
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
-.. image:: https://drive.google.com/uc?export=view&id=1iZvpFYx6DNt8BW3pv9RyXRdqiXX5SdLS
-   :target: https://drive.google.com/uc?export=view&id=1iZvpFYx6DNt8BW3pv9RyXRdqiXX5SdLS
+.. image:: https://drive.google.com/uc?export=view&id=10WA7pRI8C7FyfCrK394hpInTIxgYk0Uf
+   :target: https://drive.google.com/uc?export=view&id=10WA7pRI8C7FyfCrK394hpInTIxgYk0Uf
    :alt: Deepwordle Console
 
 **deepwordle** is a TUI clone of the famous wordle game powered by Python, Deepgram, Textual, Tweepy, and friends.
