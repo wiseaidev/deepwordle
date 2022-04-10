@@ -1,6 +1,10 @@
 deepwordle
 ==========
 
+.. image:: https://drive.google.com/uc?export=view&id=1iZvpFYx6DNt8BW3pv9RyXRdqiXX5SdLS
+   :target: https://drive.google.com/uc?export=view&id=1iZvpFYx6DNt8BW3pv9RyXRdqiXX5SdLS
+   :alt: Deepwordle Console
+
 **deepwordle** is a TUI clone of the famous wordle game powered by Python, Deepgram, Textual, Tweepy, and friends.
 
 
