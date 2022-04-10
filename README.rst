@@ -45,12 +45,11 @@ Once your request gets approved, you will be prompted to create an app as shown 
 
 Alternatively, you can go to: https://developer.twitter.com/en
 
-* click on the ``developer portal`` panel. By doing so, you will be redirected to your dashboard. 
+* click on the ``developer portal`` panel. By doing so, you will be redirected to your dashboard.
 
 
 
-* Navigate to the ``Projects & Apps`` --> ``Overview``, Scroll to the bottom of the page and click
-on ``Create App``.
+* Navigate to the ``Projects & Apps`` --> ``Overview``, Scroll to the bottom of the page and click on ``Create App``.
 
 .. image:: https://drive.google.com/uc?export=view&id=1U8gb7WDR_BYaA7jVNhKBHMqdlSYVSzrP
    :target: https://drive.google.com/uc?export=view&id=1U8gb7WDR_BYaA7jVNhKBHMqdlSYVSzrP
@@ -62,8 +61,7 @@ on ``Create App``.
    :target: https://drive.google.com/uc?export=view&id=1HEz8QpsU-zaK9L2o4bhvPfVTQbcJeK0Q
    :alt: Read only mode
 
-* Add write permissions to the app in order to be able to publish tweets. Navigate to App Settings
-and scroll down to ``User authentication settings``, then click ``set up``.
+* Add write permissions to the app in order to be able to publish tweets. Navigate to App Settings and scroll down to ``User authentication settings``, then click ``set up``.
 
 .. image:: https://drive.google.com/uc?export=view&id=1SrP1-6U0XiyJVD0ecu6QK3YLgHMBriM8
    :target: https://drive.google.com/uc?export=view&id=1SrP1-6U0XiyJVD0ecu6QK3YLgHMBriM8
@@ -94,7 +92,7 @@ value accordingly):
 
    export CONSUMER_KEY="XXXXXXXXXX"
    export CONSUMER_SECRET="XXXXXXXXXX"
-   export ACCESS_TOKEN="XXXXXXXXXX-XXXXXXXXXX"  
+   export ACCESS_TOKEN="XXXXXXXXXX-XXXXXXXXXX"
    export ACCESS_TOKEN_SECRET="XXXXXXXXXX"
 
 
@@ -220,12 +218,12 @@ Then, you can create and activate a virtual environment to use for this project:
 
    poetry shell
 
-Now, at any point in the future, you want to use a virtual environment created by poetry, you can look up 
+Now, at any point in the future, you want to use a virtual environment created by poetry, you can look up
 for installed virtual environments under :code:`~/.cache/pypoetry/virtualenvs`:
 
 .. code-block:: bash
 
-   ls ~/.cache/pypoetry/virtualenvs  
+   ls ~/.cache/pypoetry/virtualenvs
 
 To activate a virtual environment, run the following:
 
@@ -272,13 +270,13 @@ pipx will install and run deepwordle in your terminal, kind of similar to `npx`_
 Having deepwordle installed on your machine, you can run it as a CLI from your terminal:
 
 .. code-block:: console
-   
+
    deepwordle
 
 or you can use poetry to run the game:
 
 .. code-block:: console
-   
+
    poetry run deepwordle
 
 4. Components Overview
@@ -328,13 +326,13 @@ c- You will be prompted to either submit the word by pressing enter or remove th
    :target: https://drive.google.com/uc?export=view&id=1UZ06LqL286-8PNq5yQtnNGSEnQAk6CsX
    :alt: enter or backspace
 
-d- Repeat steps ``b`` and ``c`` until you complete the game. 
+d- Repeat steps ``b`` and ``c`` until you complete the game.
 
 .. image:: https://drive.google.com/uc?export=view&id=14ZZr2Cv8SaW8A4QiuS2qdp2aWYDD8q3u
    :target: https://drive.google.com/uc?export=view&id=14ZZr2Cv8SaW8A4QiuS2qdp2aWYDD8q3u
    :alt: guesses
 
-e- If you guessed the secret word, you will be asked to press ``t`` to tweet your results. 
+e- If you guessed the secret word, you will be asked to press ``t`` to tweet your results.
 
 .. image:: https://drive.google.com/uc?export=view&id=1Mm5ZHPEPBH0ACJWO_aDQ7nrh3jIYFfvo
    :target: https://drive.google.com/uc?export=view&id=1Mm5ZHPEPBH0ACJWO_aDQ7nrh3jIYFfvo
@@ -343,12 +341,12 @@ e- If you guessed the secret word, you will be asked to press ``t`` to tweet you
 License:
 --------
 
-MIT licensed. See the bundled `LICENSE`_ file for more details.
+MIT licensed. See the bundled `licence`_ file for more details.
 
 
 .. _pipx: https://github.com/pypa/pipx
 .. _npx: https://docs.npmjs.com/cli/v7/commands/npx
 .. _pyenv: https://github.com/pyenv/pyenv
 .. _poetry: https://github.com/python-poetry/poetry
-.. _LICENCE: https://github.com/Harmouch101/deepwordle/blob/main/LICENSE
+.. _licence: https://github.com/Harmouch101/deepwordle/blob/main/LICENSE
 .. _deepgram official docs: https://developers.deepgram.com/documentation/getting-started/authentication/#create-an-api-key

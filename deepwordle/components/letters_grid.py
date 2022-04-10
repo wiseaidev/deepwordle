@@ -189,7 +189,7 @@ class LettersGrid(GridView):
         ).lower()
         # update the state of the letters on the grid.
         # in python, a list is passed by reference
-        updated_letters = update_letters_state(self.current_letters, answer.upper())
+        _ = update_letters_state(self.current_letters, answer.upper())
         # check if we reach the last row of the grid.
         if self.letters_count and self.letters_count < self.max_letters - 1:
             self.letters_count += 1

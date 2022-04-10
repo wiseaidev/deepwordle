@@ -117,7 +117,7 @@ def get_day_index() -> int:
 def read_from_file(filename):
     with open(os.path.join(BASE_DIR, "data", filename), "r") as file:
         words_list = [
-            line[:-1] for line in file
+            line[:-1] for line in file if line != "\n"
         ]  # each line contains a newline character.
     return words_list
 
@@ -125,7 +125,6 @@ def read_from_file(filename):
 def append_to_file(filename, word):
     with open(os.path.join(BASE_DIR, "data", filename), "a+") as file:
         file.write(f"{word}\n")
-    return words_list
 
 
 if __name__ == "__main__":

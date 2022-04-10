@@ -184,7 +184,9 @@ class Letter(Button):
             state = "In word"
         elif self.state == IS_IN_POSITION:
             state = "In position"
-        return f"{self.__class__.__name__}(character='{self.character}', state='{state}', color='{self.color}', font='{self.font_name}')"
+        ret = f"{self.__class__.__name__}(character='{self.character}', state='{state}'"
+        ret += f", color='{self.color}', font='{self.font_name}')"
+        return ret
 
     def render(self) -> RenderableType:
         """Build a Rich renderable to render the calculator display."""

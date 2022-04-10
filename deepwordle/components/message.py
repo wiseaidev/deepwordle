@@ -160,7 +160,9 @@ class MessagePanel(Widget):
         setattr(self, "_color", value)
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(name='{self.name}', content='{self.content}', figlet='{self.figlet}', font_name='{self.font_name}', style='{self.style}')"
+        ret = f"{self.__class__.__name__}(name='{self.name}', content='{self.content}',"
+        ret += f" figlet='{self.figlet}', font_name='{self.font_name}', style='{self.style}')"
+        return ret
 
     def render(self) -> RenderableType:
         renderable: Align
