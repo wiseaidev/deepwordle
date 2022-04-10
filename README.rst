@@ -1,6 +1,9 @@
 deepwordle
 ==========
 
+.. image:: https://img.shields.io/pypi/v/deepwordle.svg
+    :target: https://pypi.org/project/deepwordle/
+
 .. image:: https://results.pre-commit.ci/badge/github/Harmouch101/deepwordle/main.svg
    :target: https://results.pre-commit.ci/latest/github/Harmouch101/deepwordle/main
    :alt: pre-commit.ci status
@@ -8,6 +11,9 @@ deepwordle
 .. image:: https://circleci.com/gh/Harmouch101/deepwordle/tree/main.svg?style=svg
    :target: https://circleci.com/gh/Harmouch101/deepwordle/tree/main
    :alt: circleci status
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/psf/black
 
 .. image:: https://drive.google.com/uc?export=view&id=1iZvpFYx6DNt8BW3pv9RyXRdqiXX5SdLS
    :target: https://drive.google.com/uc?export=view&id=1iZvpFYx6DNt8BW3pv9RyXRdqiXX5SdLS
