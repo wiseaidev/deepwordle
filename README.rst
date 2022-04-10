@@ -1,6 +1,10 @@
 deepwordle
 ==========
 
+.. image:: https://results.pre-commit.ci/badge/github/Harmouch101/deepwordle/main.svg
+   :target: https://results.pre-commit.ci/latest/github/Harmouch101/deepwordle/main
+   :alt: pre-commit.ci status
+
 .. image:: https://drive.google.com/uc?export=view&id=1iZvpFYx6DNt8BW3pv9RyXRdqiXX5SdLS
    :target: https://drive.google.com/uc?export=view&id=1iZvpFYx6DNt8BW3pv9RyXRdqiXX5SdLS
    :alt: Deepwordle Console
