@@ -332,8 +332,8 @@ c- You will be prompted to either submit the word by pressing enter or remove th
 
 d- Repeat steps ``b`` and ``c`` until you complete the game.
 
-.. image:: https://drive.google.com/uc?export=view&id=14ZZr2Cv8SaW8A4QiuS2qdp2aWYDD8q3u
-   :target: https://drive.google.com/uc?export=view&id=14ZZr2Cv8SaW8A4QiuS2qdp2aWYDD8q3u
+.. image:: https://drive.google.com/uc?export=view&id=17EQGC6mPJ3bYX8ZrRm7CF8xeufhVHMsY
+   :target: https://drive.google.com/uc?export=view&id=17EQGC6mPJ3bYX8ZrRm7CF8xeufhVHMsY
    :alt: guesses
 
 e- If you guessed the secret word, you will be asked to press ``t`` to tweet your results.
