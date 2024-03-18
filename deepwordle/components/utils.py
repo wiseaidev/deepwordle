@@ -9,6 +9,7 @@
 .. _mail: eng.mahmoudharmouch@gmail.com
 
 """
+
 from collections import (
     Counter,
 )
