@@ -9,6 +9,7 @@
 .. _mail: eng.mahmoudharmouch@gmail.com
 
 """
+
 from rich.align import (
     Align,
 )
